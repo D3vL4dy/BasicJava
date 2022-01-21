@@ -6,6 +6,8 @@ public class MyGame {
 
 	BasicSetting user;
 	Item[] item;
+	String[] Names = { "선수1", "선수2", "선수3", "선수4" };
+	BasicSetting[] com = new BasicSetting[Names.length];
 
 	MyGame() {
 		user = new BasicSetting();
@@ -22,24 +24,6 @@ public class MyGame {
 		item[7] = new Item("출발점으로 돌아가세요.", 0, 0, 0, -50);
 		item[8] = new Item("순간이동", 0, 0, 0, 10);
 		item[9] = new Item("꽝!!!", 0, 0, 0, 0);
-	}
-
-	
-
-	String[] Names = { "선수1", "선수2", "선수3", "선수4" };
-	BasicSetting[] com = new BasicSetting[Names.length];
-	
-	public static void main(String[] args) {
-		
-		MyGame mg = new MyGame();
-		for (int i = 0; i < com.length; i++) {
-			com[i] = new BasicSetting(); // 객체를 생성해 배열에 저장
-			com[i].name = Names[i];
-			com[i].set();
-		}
-		
-		
-
 	}
 
 	void start() {
@@ -62,12 +46,22 @@ public class MyGame {
 				com[1].status();
 				com[2].status();
 				com[3].status();
-				
+
 				break;
 			case 0:
 				System.out.println("종료되었습니다.");
 				System.exit(0); // 프로그램을 강제종료시키는 메소드
 			}
+		}
+	}
+
+	public static void main(String[] args) {
+
+		MyGame mg = new MyGame();
+		for (int i = 0; i < mg.Names.length; i++) {
+			mg.com[i] = new BasicSetting(); // 객체를 생성해 배열에 저장
+			mg.com[i].name = mg.Names[i];
+			mg.com[i].set();
 		}
 	}
 }
