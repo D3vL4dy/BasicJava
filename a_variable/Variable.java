@@ -132,7 +132,7 @@ public class Variable { //클래스 : 자바 프로그램의 구성요소(데이
 		//이름과 나이를 출력해주세요.
 		System.out.println("이름 : " + name + ", 나이 : " +age);
 		
-		
+		sc.close();
 	}
 
 }
