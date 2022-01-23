@@ -4,10 +4,11 @@ import e_oop.ScanUtil;
 
 public class MyGame {
 
-	Item[] item; //?????????????????????????????????????????????????????????????????????? 이곳에 적은 이유?
 	String[] Names = { "", "선수1", "선수2", "선수3" };
 	Runner[] runner = new Runner[Names.length]; // 객체를 참조하기 위한 참조변수 선언
 
+	Item[] item; //?????????????????????????????????????????????????????????????????????? 이곳에 적은 이유?
+	
 	// 생성자
 	MyGame() {
 		//아이템 초기화
@@ -19,13 +20,12 @@ public class MyGame {
 		item[4] = new Item("잠시 쉬어가세요.", 0, 0, 0, -10);
 		item[5] = new Item("출발점으로 돌아가세요.", 0, 0, 0, -50);
 		item[6] = new Item("순간이동", 0, 0, 0, 10);
-
 	}
-
+	
 	void start() {
-		System.out.println("------------------------------------");
-		System.out.println("!~!~!~!~!~ 50m 달리기 게임 ~!~!~!~!~!");
-		System.out.println("------------------------------------");
+		System.out.println("----------------------------");
+		System.out.println("!~!~!~ 50m 달리기 게임 ~!~!~!");
+		System.out.println("----------------------------");
 
 		for (int i = 0; i < Names.length; i++) {
 			runner[i] = new Runner(); // Runner클래스에 접근하기 위해 객체를 생성해 배열에 저장
@@ -33,7 +33,7 @@ public class MyGame {
 		}
 
 		while (true) {
-			System.out.println("1.참여   2.시작	0.종료");
+			System.out.println("1.참여  	0.종료");
 			int input = ScanUtil.nextInt();
 			System.out.println();
 			
@@ -48,11 +48,7 @@ public class MyGame {
 				for (int i = 0; i < runner.length; i++) {
 					runner[i].status();
 				}
-				break;
-			case 2:
-				System.out.println("달리기를 시작합니다.");
-				System.out.println("모두 준비해주세요.");
-				System.out.println();
+				System.out.println("---------------------------");
 				ready();
 				break;
 			case 0:
@@ -65,14 +61,17 @@ public class MyGame {
 
 	void ready() {
 
-		int input = 0;
+		int a = 0;
 		ready: while (true) {
+			System.out.println("달리기를 시작합니다.");
+			System.out.println("모두 준비해주세요.");
+			System.out.println();
 			System.out.println("1.출발	2.종료");
-			input = ScanUtil.nextInt();
-			switch (input) {
+			a = ScanUtil.nextInt();
+			switch (a) {
 			case 1:
 				System.out.println("출발!");
-				System.out.println();
+				System.out.println("\n");
 				new Run().run(runner);
 				break;
 			case 2:

@@ -10,6 +10,7 @@ public class Setting {
 	final int DISTANCE = 50;
 	int time = 10; // 시간
 	Item[] item; // 아이템
+	int item_num = (int) (Math.random() * 7) + 1;
 
 	// 상태창 메소드
 	void status() {
@@ -19,5 +20,7 @@ public class Setting {
 		System.out.println("체내수분량 : " + bodyMoisture + "/10");
 		System.out.println("\n");
 	}
+	
+
 
 }
