@@ -20,7 +20,5 @@ public class Setting {
 		System.out.println("체내수분량 : " + bodyMoisture + "/10");
 		System.out.println("\n");
 	}
-	
-
 
 }

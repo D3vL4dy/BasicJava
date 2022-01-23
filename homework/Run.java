@@ -1,5 +1,6 @@
 package homework;
 
+import java.util.Arrays;
 import e_oop.ScanUtil;
 
 public class Run extends Setting { // Setting 클래스의 초기화블럭, 생성자를 제외한 나머지 상속받음
@@ -80,47 +81,26 @@ public class Run extends Setting { // Setting 클래스의 초기화블럭, 생�
 		}
 	}
 
-	// 아이템을 얻는 메소드
-	void getitem(Runner runner) {
-		System.out.println("아이템 뽑기!!");
-		System.out.println(runner + "님이 " + itemChoose() + "을 뽑았습니다.");
-		System.out.println("아이템은 바로 적용됩니다.");
-
-		// 아이템을 가지고 있으면 아이템의 능력치가 캐릭터의 능력치에 바로 반영됨
-//		runner.hp += item.hp; 
-//		runner.bodyMoisture += item.bodyMoisture;
-//		runner.distance += item.distance;
-	}
-
-	Item itemChoose() {
-		return item[item_num];
-	}
-
 	// 선수의 위치 표시
-	String[][] lane = new String[4][25];
-	// String[][] runner_location = new String[4][25];
+	String[] lane = new String[DISTANCE];
 
 	void running_lane(Runner runner) {
-		for (int i = 0; i < lane.length; i++) { // 4
-			for (int j = 0; j < lane[i].length; j++) { // 25
-				lane[i][j] = "=";
-
-				if (runner.distance == 10) {
-					lane[i][5] = "0";
-				} else if (runner.distance == 20) {
-					lane[i][5] = "0";
-				} else if (runner.distance == 30) {
-					lane[i][5] = "0";
-				} else if (runner.distance == 40) {
-					lane[i][5] = "0";
-				} else if (runner.distance == 50) {
-					lane[i][5] = "0";
-s
-				}
-				System.out.print(lane[i][j]);
+		for (int i = 0; i < lane.length; i++) {
+			lane[i] = "=";
+			System.out.print(lane[i]);
+			if (runner.distance == 10) {
+				lane[runner.distance - 1] = "runner.name";
+			} else if (runner.distance == 20) {
+				lane[runner.distance - 1] = "runner.name";
+			} else if (runner.distance == 30) {
+				lane[runner.distance - 1] = "runner.name";
+			} else if (runner.distance == 40) {
+				lane[runner.distance - 1] = "runner.name";
+			} else if (runner.distance == 50) {
+				lane[runner.distance - 1] = "runner.name";
 			}
-			System.out.println();
 		}
+		System.out.println();
 
 	}
 
@@ -133,6 +113,7 @@ s
 				System.out.println("<" + time + "초> 지났습니다.");
 				for (int i = 0; i < runner.length; i++) {
 					running_lane(runner[i]);
+
 				}
 				for (int i = 0; i < runner.length; i++) {
 					print_distance_info_40(runner[i]);
@@ -143,10 +124,12 @@ s
 
 			if (time == 20) { // 20초
 				System.out.println("<" + time + "초> 지났습니다.");
-				System.out.println("---------------------------");
+				for (int i = 0; i < runner.length; i++) {
+					running_lane(runner[i]);
+				}
 				for (int i = 0; i < runner.length; i++) {
 					print_distance_info_40(runner[i]);
-//					getitem(runner[i]);
+//					new Runner().getitem(runner[i]);
 				}
 				keep_going();
 				time += 10;
@@ -154,7 +137,9 @@ s
 
 			if (time == 30) { // 30초
 				System.out.println("<" + time + "초> 지났습니다.");
-				System.out.println("---------------------------");
+				for (int i = 0; i < runner.length; i++) {
+					running_lane(runner[i]);
+				}
 				for (int i = 0; i < runner.length; i++) {
 					print_distance_info_40(runner[i]);
 				}
@@ -164,7 +149,9 @@ s
 
 			if (time == 40) { // 40초
 				System.out.println("<" + time + "초> 지났습니다.");
-				System.out.println("---------------------------");
+				for (int i = 0; i < runner.length; i++) {
+					running_lane(runner[i]);
+				}
 				for (int i = 0; i < runner.length; i++) {
 					print_distance_info_40(runner[i]);
 				}
@@ -174,7 +161,9 @@ s
 
 			if (time == 50) { // 50초
 				System.out.println("<" + time + "초> 지났습니다.");
-				System.out.println("---------------------------");
+				for (int i = 0; i < runner.length; i++) {
+					running_lane(runner[i]);
+				}
 				for (int i = 0; i < runner.length; i++) {
 					print_distance_info_50(runner[i]);
 				}
@@ -184,7 +173,9 @@ s
 
 			if (time == 60) { // 60초
 				System.out.println("<" + time + "초> 지났습니다.");
-				System.out.println("---------------------------");
+				for (int i = 0; i < runner.length; i++) {
+					running_lane(runner[i]);
+				}
 				for (int i = 0; i < runner.length; i++) {
 					print_distance_info_50(runner[i]);
 				}
@@ -194,7 +185,9 @@ s
 
 			if (time == 70) {
 				System.out.println("<" + time + "초> 지났습니다.");
-				System.out.println("---------------------------");
+				for (int i = 0; i < runner.length; i++) {
+					running_lane(runner[i]);
+				}
 				for (int i = 0; i < runner.length; i++) {
 					print_distance_info_50(runner[i]);
 				}
