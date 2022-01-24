@@ -10,7 +10,7 @@ public class Setting {
 	final int DISTANCE = 50;
 	int time = 10; // 시간
 	Item[] item; // 아이템
-	int item_num = (int) (Math.random() * 7) + 1;
+	int item_num = (int) (Math.random() * 7);
 
 	// 상태창 메소드
 	void status() {

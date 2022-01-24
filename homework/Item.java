@@ -24,8 +24,8 @@ public class Item extends Setting { // Setting 클래스의 초기화블럭, 생
 		return info;
 	}
 
-//	Item itemChoose() {
-//		return item[item_num];
-//	}
+//		Item itemChoose() {
+//			return item[item_num];
+//		}
 
 }
