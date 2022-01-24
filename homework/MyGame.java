@@ -2,14 +2,8 @@ package homework;
 
 import e_oop.ScanUtil;
 
-public class MyGame {
-
-	String[] Names = { "", "선수1", "선수2", "선수3" };
-	Runner[] runner = new Runner[Names.length]; // 객체를 참조하기 위한 참조변수 선언
-
-	Item[] item; // ?????????????????????????????????????????????????????????????????????? 이곳에 적은
-					// 이유?
-
+public class MyGame { //게임 내의 행위
+	
 	// 생성자
 //	MyGame() {
 //		// 아이템 초기화
@@ -23,15 +17,10 @@ public class MyGame {
 //		item[6] = new Item("순간이동", 0, 0, 0, 10);
 //	}
 
-	void start() {
+	void start(Runner[] runner) {
 		System.out.println("----------------------------");
 		System.out.println("!~!~!~ 50m 달리기 게임 ~!~!~!");
 		System.out.println("----------------------------");
-
-		for (int i = 0; i < Names.length; i++) {
-			runner[i] = new Runner(); // Runner클래스에 접근하기 위해 객체를 생성해 배열에 저장
-			runner[i].name = Names[i];
-		}
 
 		while (true) {
 			System.out.println("1.참여  	0.종료");
@@ -50,7 +39,7 @@ public class MyGame {
 					runner[i].status();
 				}
 				System.out.println("---------------------------");
-				ready();
+				ready(runner);
 				break;
 			case 0:
 				System.out.println("게임이 종료되었습니다.");
@@ -60,7 +49,7 @@ public class MyGame {
 
 	}
 
-	void ready() {
+	void ready(Runner[] runner) {
 
 		int a = 0;
 		ready: while (true) {
@@ -84,8 +73,17 @@ public class MyGame {
 	}
 
 	public static void main(String[] args) {
-
-		new MyGame().start();
+		String[] Names = { "", "선수1", "선수2", "선수3" };
+		
+//		Item[] item; 
+		
+		Runner[] runner = new Runner[4]; // 객체를 참조하기 위한 참조변수 선언
+		for (int i = 0; i < Names.length; i++) {
+			runner[i] = new Runner(); // Runner클래스에 접근하기 위해 객체를 생성해 배열에 저장
+			runner[i].name = Names[i];
+		}
+		
+		new MyGame().start(runner);
 	}
 
 }
