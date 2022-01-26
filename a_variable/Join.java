@@ -26,6 +26,7 @@ public class Join {
 		System.out.println("이름 : "+ name);
 		System.out.println("나이 : "+ age + "세");
 		System.out.println("키 : "+ height + "cm");
+		sc.close();
 		
 		
 		//다음과 같은 프로그램을 작성해주세요.
