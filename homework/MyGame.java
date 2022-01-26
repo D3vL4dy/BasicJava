@@ -4,7 +4,7 @@ import e_oop.ScanUtil;
 
 public class MyGame { // 게임 내의 행위
 	String winner; //사용자가 입력한 정답
-	Runner[] answer; //실제 정답
+	String[] answer; //실제 정답
 	final int DISTANCE = 50; // 결승선
 //		Runner r = new Runner();
 
@@ -69,7 +69,7 @@ public class MyGame { // 게임 내의 행위
 	}
 
 	// 한명이라도 50m에 도착하면 게임 종료
-	void arrival(Runner[] runner, Runner[] answer) {
+	void arrival(Runner[] runner, String[] answer) {
 		int arrival_num = 0;
 		System.out.println("\n\n");
 
@@ -77,7 +77,7 @@ public class MyGame { // 게임 내의 행위
 			if (runner[i].distance == DISTANCE) { // 한명이라도 50m에 도착하면 true
 				runner[i].arv = true;
 				System.out.print(runner[i] + "  ");
-				answer[i] = runner[i]; //도착한 사람을 정답에 넣어줌
+				answer[i] = runner[i].name; //도착한 사람을 정답에 넣어줌
 				arrival_num++;
 			}
 		}
@@ -260,7 +260,7 @@ public class MyGame { // 게임 내의 행위
 					running_lane(runner[i]);
 				}
 				System.out.println();
-				arrival(runner, answer);
+				arrival(runner,answer);
 			}
 			
 			if (time == 80) {
