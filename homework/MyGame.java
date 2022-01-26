@@ -3,16 +3,10 @@ package homework;
 import e_oop.ScanUtil;
 
 public class MyGame { // 게임 내의 행위
-<<<<<<< HEAD
 	String winner; //사용자가 입력한 정답
 	String[] answer; //실제 정답
 	final int DISTANCE = 50; // 결승선
 //		Runner r = new Runner();
-=======
-	
-	final int DISTANCE = 50; // 결승선
-//	Runner r = new Runner();
->>>>>>> d76b7dda9402d72049422e40ebd544e005d2223a
 
 	// 선수가 달릴 수 있는지 상태 점검
 	boolean check_status(Runner runner) { // boolean으로 해당 선수가 달릴 수 있는지 없는지를 판단
@@ -57,14 +51,8 @@ public class MyGame { // 게임 내의 행위
 			runner.distance += 10;
 			System.out.println(runner.name + " 님이 " + runner.distance + "m지점에 도착하였습니다.");
 			if (runner.distance == DISTANCE) { // 결승선 도착
-<<<<<<< HEAD
 				System.out.println("축하합니다~!\n\n");
 			} else {
-=======
-				System.out.println("축하합니다~!");
-			}
-			else {
->>>>>>> d76b7dda9402d72049422e40ebd544e005d2223a
 				runner.hp -= 1;
 				runner.bodyMoisture -= 1;
 				System.out.println("남은 거리는 " + (DISTANCE - runner.distance) + "m입니다.");
@@ -79,7 +67,6 @@ public class MyGame { // 게임 내의 행위
 		}
 
 	}
-<<<<<<< HEAD
 
 	// 한명이라도 50m에 도착하면 게임 종료
 	void arrival(Runner[] runner, Runner[] answer) {
@@ -103,21 +90,6 @@ public class MyGame { // 게임 내의 행위
 					System.out.println("게임 실패!");
 				}
 			}
-=======
-	
-	//한명이라도 50m에 도착하면 게임 종료
-	void arrival(Runner[] runner){
-		int winner_num = 0;
-		
-		for(int i = 0; i < runner.length; i++) {
-			if (runner[i].distance == DISTANCE) { //한명이라도 50m에 도착하면 true
-				runner[i].arv = true;
-				System.out.println(runner[i]+"님이 결승선에 도착한 관계로 게임을 종료합니다.");
-				winner_num ++;
-			}
-		}
-		if(0 < winner_num) {
->>>>>>> d76b7dda9402d72049422e40ebd544e005d2223a
 			System.exit(0);
 		}
 	}
@@ -369,7 +341,6 @@ public class MyGame { // 게임 내의 행위
 		}
 	}
 
-	
 	public static void main(String[] args) {
 		String[] Names = { "강정인", "노혜지", "이유정", "오혜지" };
 
@@ -378,17 +349,10 @@ public class MyGame { // 게임 내의 행위
 			runner[i] = new Runner(); // Runner클래스에 접근하기 위해 객체를 생성해 배열에 저장
 			runner[i].name = Names[i];
 		}
-<<<<<<< HEAD
 
 		MyGame game1 = new MyGame();
 		game1.start(runner);
 
-=======
-		
-		MyGame game1 = new MyGame();
-		game1.start(runner);
-		
->>>>>>> d76b7dda9402d72049422e40ebd544e005d2223a
 		new MyGame().start(runner);
 	}
 
