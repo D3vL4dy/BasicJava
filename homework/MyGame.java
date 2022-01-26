@@ -1,11 +1,11 @@
 package homework;
 
 import e_oop.ScanUtil;
+import java.util.Arrays;
 
 public class MyGame { // 게임 내의 행위
 
 	String winner; // 사용자가 입력한 정답
-	String[] answer; // 실제 정답
 	final int DISTANCE = 50; // 결승선
 	int time = 0; // 시간
 
@@ -94,9 +94,36 @@ public class MyGame { // 게임 내의 행위
 		}
 		System.out.println();
 	}
+	
+	// 한명이라도 50m에 도착하면 게임 종료
+		void arrival(Runner[] runner) {
+			int arrival_num = 0;
+			boolean winner_flag = false;
+			System.out.println("\n\n");
+			
+			for (int i = 0; i < runner.length; i++) {
+				if (runner[i].distance == DISTANCE) { // 한명이라도 50m에 도착하면 true
+					System.out.println(runner[i].name + "님이 결승선에 도착했습니다.");
+					arrival_num++;
+					// ================================= 코드가 동작하지 않음
+					if (runner[i].name == this.winner) {
+						winner_flag = true;
+					}
+				}
+			}
+			if (0 < arrival_num) {
+				if (winner_flag == true) {
+					System.out.println("정답을 맞췄습니다.  ~~~↖^ㅠ^↗~~~");
+				} else {
+					System.out.println("게임 실패! ....↙-___-↘....");
+				}
+				System.out.println("게임을 종료합니다.");
+				System.exit(0);
+			}
+		}
 
-	// 선수의 위치와 상태 출력 (50부터~)
-	void print_distance_info_50(Runner[] runner) {
+		// 선수의 위치와 상태 출력 (50부터~)
+		void print_distance_info_50(Runner[] runner) {
 		stop();
 		System.out.println("\n\n\n<" + time + "초> 지났습니다.\n");
 		for (int i = 0; i < runner.length; i++) {
@@ -123,39 +150,11 @@ public class MyGame { // 게임 내의 행위
 		for (int i = 0; i < runner.length; i++) {
 			running_lane(runner[i]);
 		}
+		arrival(runner);
 		System.out.println();
-		arrival(runner, answer);
 	}
 
-	// 한명이라도 50m에 도착하면 게임 종료
-	void arrival(Runner[] runner, String[] answer) {
-		int arrival_num = 0;
-		System.out.println("\n\n");
-		for (int i = 0; i < runner.length; i++) {
-			if (runner[i].distance == DISTANCE) { // 한명이라도 50m에 도착하면 true
-//				runner[i].arv = true;
-				System.out.println(runner[i].name + "님이 결승선에 도착했습니다.");
-				//================================= 밑부터 코드 안돼
-				answer[arrival_num] = runner[i].name;
-				arrival_num++;
-			}
-		}
-
-		if (0 < arrival_num) {
-			for (int i = 0; i < answer.length; i++) {
-				System.out.println(answer[i] + "님 도착!!");
-				if (winner.equals(answer[i])) {
-					System.out.println("정답을 맞췄습니다.  ~~~↖^ㅠ^↗~~~");
-					System.out.println("게임을 종료합니다.");
-				} else {
-					System.out.println("게임 실패! ....↙-___-↘....");
-					System.out.println("게임을 다시 시작합니다.");
-					start(runner);
-				}
-			}
-			System.exit(0);
-		}
-	}
+	
 
 	// 10초마다 선수의 상태정보를 출력하는 반복문
 	void run(Runner[] runner) { // Runner라는 클래스로 만들어진 배열을 인자(runner)로 받음
@@ -183,12 +182,6 @@ public class MyGame { // 게임 내의 행위
 		}
 	}
 
-	String check() {
-		System.out.println("어느 선수가 1등일까요? 맞춰주세요!");
-		winner = ScanUtil.nextLine();
-		return winner;
-	}
-
 	// 게임 시작
 	void start(Runner[] runner) {
 		System.out.println("----------------------------");
@@ -202,7 +195,9 @@ public class MyGame { // 게임 내의 행위
 
 			switch (input) {
 			case 1:
-				winner = check();
+				System.out.println("어느 선수가 1등일까요? 이름을 입력해주세요!");
+				System.out.println(Arrays.toString(runner));
+				this.winner = ScanUtil.nextLine();
 				System.out.println();
 				System.out.println("---------------------------");
 				System.out.println("         선수 프로필         ");

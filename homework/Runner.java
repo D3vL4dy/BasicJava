@@ -9,7 +9,6 @@ public class Runner {
 	
 
 	boolean is_taking_rest = true; // 휴식중
-//	boolean arv = false; // 결승선에 들어온 선수가 있는지 확인하는 변수
 
 	String[] lane = new String[50];
 
