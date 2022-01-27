@@ -105,15 +105,20 @@ public class MyGame { // 게임 내의 행위
 				if (runner[i].distance == DISTANCE) { // 한명이라도 50m에 도착하면 true
 					System.out.println(runner[i].name + "님이 결승선에 도착했습니다.");
 					arrival_num++;
-					// ================================= 코드가 동작하지 않음
-					if (runner[i].name == this.winner) {
+					if (runner[i].name.equals(this.winner)) {
 						winner_flag = true;
 					}
 				}
 			}
+			
+			System.out.print("사용자가 입력한 1등 : ");
+			String[] split = winner.split(" ");
+			System.out.println(Arrays.toString(split));
+			
 			if (0 < arrival_num) {
 				if (winner_flag == true) {
-					System.out.println("정답을 맞췄습니다.  ~~~↖^ㅠ^↗~~~");
+					
+					System.out.println("\n정답을 맞췄습니다.  ~~~↖^ㅠ^↗~~~");
 				} else {
 					System.out.println("게임 실패! ....↙-___-↘....");
 				}
@@ -209,7 +214,7 @@ public class MyGame { // 게임 내의 행위
 					System.out.println("\n");
 				}
 				System.out.println("---------------------------");
-				ready(runner);
+				ready(runner); //수정
 				break;
 			case 0:
 				System.out.println("게임이 종료되었습니다.");
@@ -231,7 +236,7 @@ public class MyGame { // 게임 내의 행위
 			case 1:
 				System.out.println("출발!");
 				System.out.println("\n");
-				new MyGame().run(runner);
+				run(runner);
 				break;
 			case 2:
 				System.out.println("게임이 종료되었습니다.");
@@ -252,7 +257,7 @@ public class MyGame { // 게임 내의 행위
 		MyGame mg = new MyGame();
 		mg.start(runner);
 
-		new MyGame().start(runner);
+//		new MyGame().start(runner);
 	}
 
 }
