@@ -94,41 +94,38 @@ public class MyGame { // 게임 내의 행위
 		}
 		System.out.println();
 	}
-	
+
 	// 한명이라도 50m에 도착하면 게임 종료
-		void arrival(Runner[] runner) {
-			int arrival_num = 0;
-			boolean winner_flag = false;
-			System.out.println("\n\n");
-			
-			for (int i = 0; i < runner.length; i++) {
-				if (runner[i].distance == DISTANCE) { // 한명이라도 50m에 도착하면 true
-					System.out.println(runner[i].name + "님이 결승선에 도착했습니다.");
-					arrival_num++;
-					if (runner[i].name.equals(this.winner)) {
-						winner_flag = true;
-					}
+	void arrival(Runner[] runner) {
+		int arrival_num = 0;
+		boolean winner_flag = false;
+		System.out.println("\n\n");
+		System.out.println("사용자가 입력한 1등 : " + winner);
+
+		for (int i = 0; i < runner.length; i++) {
+			if (runner[i].distance == DISTANCE) { // 한명이라도 50m에 도착하면 true
+				System.out.println(runner[i].name + "님이 결승선에 도착했습니다.");
+				arrival_num++;
+				if (runner[i].name.equals(winner)) {
+					winner_flag = true;
 				}
-			}
-			
-			System.out.print("사용자가 입력한 1등 : ");
-			String[] split = winner.split(" ");
-			System.out.println(Arrays.toString(split));
-			
-			if (0 < arrival_num) {
-				if (winner_flag == true) {
-					
-					System.out.println("\n정답을 맞췄습니다.  ~~~↖^ㅠ^↗~~~");
-				} else {
-					System.out.println("게임 실패! ....↙-___-↘....");
-				}
-				System.out.println("게임을 종료합니다.");
-				System.exit(0);
 			}
 		}
 
-		// 선수의 위치와 상태 출력 (50부터~)
-		void print_distance_info_50(Runner[] runner) {
+		if (0 < arrival_num) {
+			if (winner_flag == true) {
+
+				System.out.println("\n정답을 맞췄습니다.  ~~~↖^ㅠ^↗~~~");
+			} else {
+				System.out.println("게임 실패! ....↙-___-↘....");
+			}
+			System.out.println("게임을 종료합니다.");
+			System.exit(0);
+		}
+	}
+
+	// 선수의 위치와 상태 출력 (50부터~)
+	void print_distance_info_50(Runner[] runner) {
 		stop();
 		System.out.println("\n\n\n<" + time + "초> 지났습니다.\n");
 		for (int i = 0; i < runner.length; i++) {
@@ -158,8 +155,6 @@ public class MyGame { // 게임 내의 행위
 		arrival(runner);
 		System.out.println();
 	}
-
-	
 
 	// 10초마다 선수의 상태정보를 출력하는 반복문
 	void run(Runner[] runner) { // Runner라는 클래스로 만들어진 배열을 인자(runner)로 받음
@@ -201,6 +196,7 @@ public class MyGame { // 게임 내의 행위
 			switch (input) {
 			case 1:
 				System.out.println("어느 선수가 1등일까요? 이름을 입력해주세요!");
+				System.out.println("1등이 여러명일 경우 결승선을 통과한 선수에 사용자가 입력한 선수가 포함되면 정답으로 간주합니다.");
 				System.out.println(Arrays.toString(runner));
 				this.winner = ScanUtil.nextLine();
 				System.out.println();
@@ -214,7 +210,8 @@ public class MyGame { // 게임 내의 행위
 					System.out.println("\n");
 				}
 				System.out.println("---------------------------");
-				ready(runner); //수정
+//				new MyGame().ready(runner); //수정
+				ready(runner);
 				break;
 			case 0:
 				System.out.println("게임이 종료되었습니다.");
