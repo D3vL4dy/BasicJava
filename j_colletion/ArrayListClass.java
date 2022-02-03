@@ -9,7 +9,7 @@ public class ArrayListClass {
 		/*
 		 * Collection Framework (모두가 사용하는 공통된 다수의 데이터를 위해 만들어진 것)
 		 * - List (배열과 비슷하게 생김. 인덱스 순으로 데이터를 저장)
-		 * - Map (데이터 저장시 사용자가 키를 설정해 키에 값을 저장)
+		 * - Map (데이터 저장 시 사용자가 키를 설정해 키에 값을 저장)
 		 * - Set (중복된 값이 저장되지 않음)
 		 * 
 		 * ArrayList의 주요 메서드 (읽는 속도가 빠름)
@@ -131,7 +131,7 @@ public class ArrayListClass {
 			list.set(i, list.get(min));
 			list.set(min, temp2);
 
-			// 한줄로 정리
+			// 한 줄로 정리
 			list.set(i, list.set(min, list.get(i)));
 			//list.get(i)의 값이 min으로 가고 list.set(i, min)
 			//i에 min을 넣고 기존 i의 값은 사라짐
@@ -164,6 +164,7 @@ public class ArrayListClass {
 				System.out.println(list3.get(j));
 			}
 		}
+		
 		// 특정한 하나의 값만 얻을 때
 		Integer integer = list2.get(0).get(1); // list2.get(0) : 1차원 ArrayList
 		System.out.println(integer);
