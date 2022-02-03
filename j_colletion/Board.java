@@ -29,7 +29,8 @@ public class Board {
 		while (true) {
 			System.out.println("===========================");
 			System.out.println("번호\t제목\t작성자\t작성일");
-			for (int i = boardTable.size() - 1; i >= 0; i--) { // 새로운 글이 위에 보이게 거꾸로 출력
+			// 새로운 글이 위에 보이게 거꾸로 출력
+			for (int i = boardTable.size() - 1; i >= 0; i--) {
 				System.out.println("-----------------------");
 				HashMap<String, Object> board = boardTable.get(i);
 				System.out.println(board.get("BOARD_NO") + "\t" + board.get("TITLE") + "\t" + board.get("USER_NAME")
@@ -65,7 +66,7 @@ public class Board {
 			}
 		}
 
-		board.put("BOARD_NO", max + 1); // 글번호도 자동으로 붙여지기 때문에 적지 않음
+		board.put("BOARD_NO", max + 1); // 글번호는 자동으로 붙여지기 때문에 적지 않음
 
 		System.out.println("<제목>");
 		board.put("TITLE", ScanUtil.nextLine());
@@ -78,7 +79,7 @@ public class Board {
 
 		board.put("REG_DATE", new Date()); // Date 객체를 생성하면 현재 날짜를 저장할 수 있음
 
-		// 필요한 내용을 전부 해쉬맵에 저장 후 그 내용을 테이블에 추가
+		// 필요한 내용을 전부 HashMap에 저장 후 그 내용을 테이블에 추가
 		boardTable.add(board);
 
 		System.out.println("게시글이 등록되었습니다.");
@@ -127,7 +128,7 @@ public class Board {
 
 	private void delete(HashMap<String, Object> board) {
 
-		// 사용자에게 다시 묻고 삭제를 한다고 하면 삭제함.
+		// 사용자에게 다시 묻고 삭제 한다고 하면 삭제함.
 		System.out.println("정말 삭제 하시겠습니까?(Y/N)");
 		String input = ScanUtil.nextLine();
 
@@ -145,9 +146,9 @@ public class Board {
 	}
 
 	private void update(HashMap<String, Object> board) {
-		// 파라미터로 받은 보드가 테이블에 들어있는 게시물에 주소가 들어있음
-		// 내용이 아니라 주소가 들어있어서 주소를 참조하고 들어가면 테이블에 들어있는거나
-		// 보드에 들어있는거나 같은 내용이기 떄문에 보드를 수정하면 테이블도 수정됨
+		// 파라미터로 받은 보드에는 테이블에 있는 게시물의 주소가 들어있음
+		// 내용이 아니라 주소가 들어있어서 주소를 참조하고 들어가면
+		// 테이블이나 보드나 같은 내용이 들어있기 때문에 보드를 수정하면 테이블도 수정됨
 		System.out.println("제목>");
 		board.put("TITLE", ScanUtil.nextLine());
 		System.out.println("내용>");
