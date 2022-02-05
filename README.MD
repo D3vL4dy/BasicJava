@@ -35,6 +35,8 @@
 	- 오버로딩 (VariableInit)
 - f_game
 	- 예제 : Game
+- f_running_game
+	- 과제 : 게임 만들기 
 - g_oop2
 	- 접근지정자 (AM, AT, T, p_test)
 	- 상속 (SP, SC)
@@ -46,8 +48,6 @@
 	- finally
 	- 예외 발생시키기
 	- 메서드에 예외 선언
-- homework
-	- 게임 만들기
 - i_api
 	- 정규표현식
 	- String Class
@@ -57,7 +57,5 @@
 	- 예제 : Student ArrayList
 	- HashMap
 	- Board 
-- running_game
-	- 과제 : 게임 만들기 
 - score2
 	- 과제 : Student Class (e_oop)
