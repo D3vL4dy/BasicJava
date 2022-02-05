@@ -57,5 +57,7 @@
 	- 예제 : Student ArrayList
 	- HashMap
 	- Board 
+- running_game
+	- 과제 : 게임 만들기 
 - score2
 	- 과제 : Student Class (e_oop)
