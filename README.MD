@@ -57,5 +57,10 @@
 	- 예제 : Student ArrayList
 	- HashMap
 	- Board 
+- k_jdbc
+	- JDBC : 기본 형태
+	- JDBC2 : 발전된 형태
+	- JDBCUtil : 메서드 생성
+	- JDBCTest : 메서드 테스트
 - score2
 	- 과제 : Student Class (e_oop)
