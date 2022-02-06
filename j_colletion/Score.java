@@ -48,6 +48,7 @@ public class Score {
 		}
 
 		// 합계, 평균
+		// sum은 score.get(i).get(j)들의 합(학생별 과목점수들 다 더한 거), sums는 sum 모음
 		ArrayList<Integer> sums = new ArrayList<Integer>();
 		ArrayList<Double> avgs = new ArrayList<Double>();
 		for (int i = 0; i < score.size(); i++) {

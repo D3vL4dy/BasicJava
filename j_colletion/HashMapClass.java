@@ -44,8 +44,10 @@ public class HashMapClass {
 			System.out.println(key + " : " + map.get(key)); // get(key):key에 해당하는 값을 반환
 		}
 
+		// HashMap 객체만 넣을 수 있는 ArrayList 생성
 		ArrayList<HashMap<String, Object>> lprodTable = new ArrayList<HashMap<String, Object>>();
 
+		// HashMap<String, Object>은 ArrayList에 추가하기 위한 변수
 		HashMap<String, Object> lprod = new HashMap<String, Object>();
 		lprod.put("LPROD_ID", 1);
 		lprod.put("LPROD_GU", "P101");
