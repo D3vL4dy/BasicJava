@@ -15,7 +15,7 @@ public class JDBCUtil {
 	
 	// 데이터베이스 접속 정보
 	private static String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static String user = "system";
+	private static String user = "KJI97";
 	private static String password = "java";
 	
 	private static Connection con = null;
@@ -40,8 +40,112 @@ public class JDBCUtil {
 	 * int update(String sql, List<Object> param) : sql문 안에 물음표가 있을 때 사용
 	 */
 	
+	public static Map<String, Object> selectOne(String sql) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			if(rs.next()) {
+				// Map에 null이 들어있기 때문에 HashMap 생성
+				map = new HashMap<String, Object>();
+				for (int i = 1; i <= columnCount; i++) {
+					map.put(metaData.getColumnName(i), rs.getObject(i));
+				} 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(Exception e) {}
+			if(ps != null) try {ps.close();} catch(Exception e) {}
+			if(con != null) try {con.close();} catch(Exception e) {}
+		}
+		return map;
+	}
+	
+	
+	public static Map<String,Object> selectOne(String sql, List<Object> param) {
+		// 파라미터로 쿼리를 받는 메서드. 실행 결과가 한 줄이기 때문에 HashMap에 담아 리턴
+		
+		// 조회 결과가 없는 경우 null이 넘어오게 하기 위해 null을 넣고 시작
+		Map<String, Object> map = null;
+
+		try {
+			con = DriverManager.getConnection(url, user, password);
+
+			ps = con.prepareStatement(sql); // 쿼리를 객체로 만든 것
+			
+			// 물음표를 채우는 과정 (param이 있을 때만)
+			for (int i = 0; i < param.size(); i++) {
+				ps.setObject(i + 1, param.get(i));
+			}
+			
+			rs = ps.executeQuery();
+			
+			// 컬럼의 수 확인
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			// next()를 호출하기 전에는 어떤 행위도 하지 않기 때문에 무조건 한 번은 호출해야 함
+			// selectOne은 한 줄이기 때문에 여러 번 반복이 필요 없어서 while문은 사용하지 않음
+			// 조회된 데이터가 없는 경우 HashMap에 넣을 필요가 없어 행이 있을 때 실행하게 if문으로 생성
+			if(rs.next()) {
+				// Map에 null이 들어있기 때문에 HashMap 생성
+				map = new HashMap<String, Object>();
+				for (int i = 1; i <= columnCount; i++) {
+					map.put(metaData.getColumnName(i), rs.getObject(i));
+				} 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(Exception e) {}
+			if(ps != null) try {ps.close();} catch(Exception e) {}
+			if(con != null) try {con.close();} catch(Exception e) {}
+		}
+		return map;
+	}
+	
+	
+	public static List<Map<String, Object>> selectList(String sql){
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			ps = con.prepareStatement(sql); 
+			
+			rs = ps.executeQuery();
+
+			ResultSetMetaData metaData = rs.getMetaData();
+			
+			int columnCount = metaData.getColumnCount();
+			
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				for (int i = 1; i <= columnCount; i++) {
+					map.put(metaData.getColumnName(i), rs.getObject(i));
+				}
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(Exception e) {}
+			if(ps != null) try {ps.close();} catch(Exception e) {}
+			if(con != null) try {con.close();} catch(Exception e) {}
+		}
+		return list;
+	}
+	
+	
 	public static List<Map<String, Object>> selectList(String sql, List<Object> param) {
 		// 파라미터로 쿼리를 받는 메서드. 실행 결과를 ArrayList에 담아 리턴 
+		// 조회 결과가 없는 경우 null 대신 사이즈가 0인 ArrayList가 넘어오게 하기 위해 ArrayList 생성
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
 		try {
@@ -82,6 +186,55 @@ public class JDBCUtil {
 			if(con != null) try {con.close();} catch(Exception e) {}
 		}
 		return list;
+	}
+	
+	
+	public static int update(String sql) {
+		int result = 0;
+		
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			
+			ps = con.prepareStatement(sql);
+			
+			// int 타입 변수에 영향을 받은 행의 수 저장
+			result = ps.executeUpdate();
+			// select가 아니기 때문에 결과를 추출하는 과정이 필요 없음
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(Exception e) {}
+			if(ps != null) try {ps.close();} catch(Exception e) {}
+			if(con != null) try {con.close();} catch(Exception e) {}
+		}
+		return result;
+	}
+	
+	
+	public static int update(String sql, List<Object> param) {
+		int result = 0;
+		
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			
+			ps = con.prepareStatement(sql);
+			// param에 값 채우기
+			for (int i = 0; i < param.size(); i++) { 
+				ps.setObject(i + 1, param.get(i)); 
+			}
+			// int 타입 변수에 영향을 받은 행의 수 저장
+			result = ps.executeUpdate();
+			// select가 아니기 때문에 결과를 추출하는 과정이 필요 없음
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(Exception e) {}
+			if(ps != null) try {ps.close();} catch(Exception e) {}
+			if(con != null) try {con.close();} catch(Exception e) {}
+		}
+		return result;
 	}
 
 }
