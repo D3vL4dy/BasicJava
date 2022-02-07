@@ -38,8 +38,7 @@ public class JDBCBoard {
 			System.out.println("번호\t제목\t작성자\t작성일");
 			String sql = "select * from TB_JDBC_BOARD";
 			
-			ArrayList<Object> param = new ArrayList<Object>();
-			
+			// 목록보기
 			boardTable = JDBCUtil.selectList(sql);
 			
 		      for(int i = boardTable.size() - 1; i >= 0; i--) {
@@ -88,7 +87,7 @@ public class JDBCBoard {
 		System.out.println(result + " 개의 게시글이 추가되었습니다.");
 	}
 
-	// 조회
+	// 조회 (상세보기)
 	private void read() { 
 		System.out.print("조회할 게시물 번호>");
 		int boardNo = ScanUtil.nextInt(); 
@@ -101,13 +100,7 @@ public class JDBCBoard {
 		
 		param.add(boardNo);
 		
-		boardTable = JDBCUtil.selectList(sql, param);
-		
-		HashMap<String, Object> board = null;
-		for(int i = 0; i < boardTable.size(); i++) {  // 사용자가 입력한 번호와 테이블에 있는 번호 중 같은 걸 찾아서 변수 board에 저장
-				board = (HashMap<String, Object>) boardTable.get(i);
-				break; // 덜 돌기 위해서 찾으면 break걸기
-		}
+		Map<String,Object> board = JDBCUtil.selectOne(sql, param);
 		
 		System.out.println("===================================");
 		System.out.println("번호\t: " + board.get("BOARD_NO"));
