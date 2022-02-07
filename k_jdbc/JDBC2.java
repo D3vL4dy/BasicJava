@@ -16,7 +16,7 @@ public class JDBC2 {
 
 		// 데이터베이스 접속 정보
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String user = "system";
+		String user = "KJI97";
 		String password = "java";
 
 		Connection con = null;
@@ -51,8 +51,9 @@ public class JDBC2 {
 
 			while (rs.next()) {
 				for (int i = 1; i <= columnCount; i++) { // 컬럼의 인덱스는 1부터 시작
+					// get(컬럼의 인덱스/컬럼명) 메서드를 통해 컬럼을 하나씩 가져옴
 					System.out.print(rs.getObject(i) + "\t"); // 컬럼 인덱스를 파라미터로 넣음
-				} // getObject : 타입을 구분하지 않음
+				}
 				System.out.println();
 			}
 		} catch (SQLException e) {

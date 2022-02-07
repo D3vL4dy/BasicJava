@@ -22,11 +22,11 @@ public class JDBCUtil {
 	private static PreparedStatement ps = null;
 	private static ResultSet rs = null;
 	
-	// 메서드 안에서 결정할 수 없는 데이터(쿼리)가 있는 경우 파라미터로 받아야 함
+	// 메서드 안에서 결정할 수 없는 데이터(쿼리)가 있는 경우 파라미터로 받아야 함 
 	// > 쿼리를 파라미터로 받아서 실행 후 결과를 리턴하는 메서드 생성
 	
 	/*
-	 * // String sql :쿼리	List<Object> param :물음표에 들어갈 값을 순서대로 ArrayList에 담아 파라미터로 넘김
+	 * // String sql :쿼리	
 	 * // selectOne:조회 결과가 한 줄. 결과를 HashMap에 담아 리턴	
 	 * Map<String, Object> selectOne(String sql) : 물음표 없을 때 사용
 	 * Map<String, Object> selectOne(String sql, List<Object> param) : sql문 안에 물음표가 있을 때 사용
@@ -41,18 +41,22 @@ public class JDBCUtil {
 	 */
 	
 	public static Map<String, Object> selectOne(String sql) {
+		// 파라미터로 쿼리를 받는 메서드. 실행 결과가 한 줄이기 때문에 HashMap에 담아 리턴
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		try {
+			// 연결 작업 > 커넥션 객체를 리턴받아 변수에 저장
 			con = DriverManager.getConnection(url, user, password);
+			
+			// 문자열로 된 쿼리를 오라클에 전송하기 적합한 형태로 바꿔서 리턴
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
+			// 컬럼의 수 확인
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			
 			if(rs.next()) {
-				// Map에 null이 들어있기 때문에 HashMap 생성
 				map = new HashMap<String, Object>();
 				for (int i = 1; i <= columnCount; i++) {
 					map.put(metaData.getColumnName(i), rs.getObject(i));
@@ -77,17 +81,15 @@ public class JDBCUtil {
 
 		try {
 			con = DriverManager.getConnection(url, user, password);
-
 			ps = con.prepareStatement(sql); // 쿼리를 객체로 만든 것
 			
 			// 물음표를 채우는 과정 (param이 있을 때만)
-			for (int i = 0; i < param.size(); i++) {
-				ps.setObject(i + 1, param.get(i));
+			for (int i = 0; i < param.size(); i++) { // for문을 돌면서 SetObject 메서드로 하나씩 채워 넣음
+				ps.setObject(i + 1, param.get(i)); // 물음표의 인덱스는 1부터 시작하므로 i + 1
 			}
 			
 			rs = ps.executeQuery();
 			
-			// 컬럼의 수 확인
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			
@@ -113,16 +115,15 @@ public class JDBCUtil {
 	
 	
 	public static List<Map<String, Object>> selectList(String sql){
+		// 파라미터로 쿼리를 받는 메서드. 실행 결과를 ArrayList에 담아 리턴 
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		
 		try {
 			con = DriverManager.getConnection(url, user, password);
 			ps = con.prepareStatement(sql); 
-			
 			rs = ps.executeQuery();
 
 			ResultSetMetaData metaData = rs.getMetaData();
-			
 			int columnCount = metaData.getColumnCount();
 			
 			while (rs.next()) {
@@ -149,21 +150,19 @@ public class JDBCUtil {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
 		try {
-			// 연결 작업 > 커넥션 객체를 리턴받아 변수에 저장
 			con = DriverManager.getConnection(url, user, password);
 
 			// 쿼리를 파라미터로 받기 때문에 따로 작성하지 않음
-			ps = con.prepareStatement(sql); // 문자열로 된 쿼리를 오라클에 전송하기 적합한 형태로 바꿔서 리턴
+			ps = con.prepareStatement(sql);
 
 			// 파라미터로 받은 물음표에 들어갈 값이 ArrayList에 들어있음 (ArrayList는 값이 여러 개일 때 사용)
-			for (int i = 0; i < param.size(); i++) { // for문을 돌면서 SetObject 메서드로 하나씩 채워 넣음
-				ps.setObject(i + 1, param.get(i)); // 물음표의 인덱스는 1부터 시작하므로 i + 1
+			for (int i = 0; i < param.size(); i++) { 
+				ps.setObject(i + 1, param.get(i)); 
 			}
 
 			rs = ps.executeQuery();
 
 			ResultSetMetaData metaData = rs.getMetaData();
-
 			int columnCount = metaData.getColumnCount();
 
 			// rs에서 하나씩 추출해 ArrayList에 담음
@@ -194,7 +193,6 @@ public class JDBCUtil {
 		
 		try {
 			con = DriverManager.getConnection(url, user, password);
-			
 			ps = con.prepareStatement(sql);
 			
 			// int 타입 변수에 영향을 받은 행의 수 저장
@@ -217,9 +215,8 @@ public class JDBCUtil {
 		
 		try {
 			con = DriverManager.getConnection(url, user, password);
-			
 			ps = con.prepareStatement(sql);
-			// param에 값 채우기
+			
 			for (int i = 0; i < param.size(); i++) { 
 				ps.setObject(i + 1, param.get(i)); 
 			}
