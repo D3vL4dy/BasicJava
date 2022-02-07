@@ -231,7 +231,7 @@ public class JDBCUtil {
 			if(ps != null) try {ps.close();} catch(Exception e) {}
 			if(con != null) try {con.close();} catch(Exception e) {}
 		}
-		return result;
+		return result; 
 	}
 
 }
