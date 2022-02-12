@@ -64,7 +64,3 @@
 	- JDBCTest : 메서드 테스트
 - score2
 	- 과제 : Student Class (e_oop)
-- SampleProject
-	- Controller : 화면 이동
-	- Service : 화면 기능
-	- Dao : 데이터베이스 접속
