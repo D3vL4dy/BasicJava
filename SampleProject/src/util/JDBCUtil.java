@@ -59,8 +59,6 @@ public class JDBCUtil {
 			if(rs.next()) {
 				map = new HashMap<String, Object>();
 				for (int i = 1; i <= columnCount; i++) {
-					// HashMap은 (컬럼명, 컬럼값)으로 이루어짐
-					// metaData.getColumnName(i) : 파라미터로 인덱스를 넘겨주면 해당 컬럼명을 알 수 있음
 					map.put(metaData.getColumnName(i), rs.getObject(i));
 				} 
 			}

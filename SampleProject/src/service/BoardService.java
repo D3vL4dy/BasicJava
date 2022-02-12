@@ -13,20 +13,19 @@ public class BoardService {
 
 	// 싱글톤 패턴 : 하나의 객체를 돌려쓰게 만들어주는 디자인 패턴
 	private BoardService() {
-		// 생성자를 호출하지 못하면 객체 생성을 할 수 없기 때문에 private으로 지정
-
+		// private으로 지정하면 생성자를 호출하지 못하기 때문에 객체 생성을 할 수 없음
+		// private로 다른 클래스에서 객체생성을 못하게 접근 제한(객체가 여러개 생길 일이 없어짐)
 	}
 
 	private static BoardService instance; // 객체를 보관할 변수
 
 	public static BoardService getInstance() {
 		if (instance == null) { // 객체가 생성되지 않아 변수가 비어있을 경우
-			instance = new BoardService(); // 새로 생성해 리턴
-		}
-		return instance;
+			instance = new BoardService(); // 객체를 새로 생성해 리턴
+		} // 객체가 이미 instance에 있으면 그대로 주면됨
+		return instance; // 객체 리턴
 	}
 	
-	//boardList();
 	private BoardDao boardDao = BoardDao.getInstance();
 			
 	public int boardList() {
@@ -44,25 +43,28 @@ public class BoardService {
 		System.out.println("1.조회  2.등록  0.로그아웃>");
 		
 		int input = ScanUtil.nextInt();
+		
 		switch (input) {
 		case 1:
-			System.out.print("게시글번호>");
-			CurrentBoardNo = ScanUtil.nextInt();
-			return View.BOARD_INSERT;
+			readBoard();
+			break;
 		case 2:
+			insertBoard();
+			break;
 		case 0:
 			MemberService.loginMember = null; // 변수에 들어있던 값을 지우면 로그아웃
 			return View.HOME;
 		}
-		
 		return View.BOARD_LIST; // 사용자가 잘못 입력한 경우 목록을 보여줌
 	}
 	
-	int CurrentBoardNo;
+	int currentBoardNo;
 	
-	public int boardRead() {
+	public int readBoard() {
+		System.out.print("게시글 번호>");
+		currentBoardNo = ScanUtil.nextInt();
 		
-		Map<String,Object> board = boardDao.selectBoard(CurrentBoardNo);
+		Map<String,Object> board = boardDao.readBoardList(currentBoardNo);
 		
 		System.out.println("---------------------------------");
 		System.out.println("번호\t: " + board.get("BOARD_NO"));
@@ -75,63 +77,63 @@ public class BoardService {
 		System.out.println("1.수정  2.삭제  0.목록>");
 		int input = ScanUtil.nextInt();
 		switch(input) {
-		case 1: return View.BOARD_UPDATE;
-		case 2: return View.BOARD_DELETE;
-		case 0: return View.BOARD_LIST;
+		case 1:
+			boardDelete(currentBoardNo);
+			return View.BOARD_READ;
+		case 2:
+			boardUpdate();
+			return View.BOARD_READ;
 		}
+		return View.BOARD_LIST;
 	}
 	
-	public int boardInsert() {
+	public int insertBoard() {
 		System.out.print("제목>");
 		String title = ScanUtil.nextLine();
 		System.out.print("내용>");
 		String content = ScanUtil.nextLine();
-		System.out.print("아이디>");
 		String memId = (String) MemberService.loginMember.get("MEM_ID");
 		
-		int result = boardDao.insertBoard(title, content, memId);
+		int result = boardDao.insertBoardList(title, content, memId);
 		
 		if(0 < result) {
-			System.out.println("게시글 등록이 완료되었습니다.");
+			System.out.println("게시글 등록 성공");
 		}else {
-			System.out.println("게시글 등록에 실패하였습니다.");
-		}
+			System.out.println("게시글 등록 실패");
+		}		
 		return View.BOARD_LIST;
 	}
 	
 
 	public int boardUpdate() {
-		int boardNo = CurrentBoardNo;
+		String boardNo = (String)MemberService.loginMember.get("BOARD_NO");
 		System.out.println("제목>");
 		String title = ScanUtil.nextLine();
 		System.out.println("내용>");
 		String content = ScanUtil.nextLine();
 		
-		int result = boardDao.updateBoard(boardNo, title, content);
+		int result = boardDao.updateBoardList(boardNo, title, content);
 		
 		if(0 < result) {
-			System.out.println("게시글 등록이 완료되었습니다.");
+			System.out.println("게시글 수정 성공");
 		}else {
-			System.out.println("게시글 등록에 실패하였습니다.");
+			System.out.println("게시글 수정 실패");
 		}
 		return View.BOARD_LIST;
-		
 	}
 	
 	public int boardDelete(int boardNo) {
-		System.out.println("정말 삭제하시겠습니까?");
+		System.out.println("정말 삭제하시겠습니까?(y/n)>");
 		String yn = ScanUtil.nextLine();
 		
 		if(yn.equals("Y")) {
-			int boardNo = CurrentBoardNo;
-			int result = boardDao.deleteBoard(boardNo);
+			int result = boardDao.deleteBoardList(yn, currentBoardNo);
 			if(0 < result) {
 			}
-				System.out.println("게시글 삭제가 완료되었습니다.");
+				System.out.println("게시글 삭제 성공");
 			}else {
-				System.out.println("게시글 삭제에 실패하였습니다.");
+				System.out.println("게시글 삭제 실패");
 			}
 			return View.BOARD_LIST;
 	}
-	
 }
